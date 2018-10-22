@@ -2,11 +2,163 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <meta name="viewport" content="width=device-width">
+        <title>School files</title>
         <link rel="stylesheet" href="dist/style.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
     </head>
     <body>
-        <p>Hello world!</p>
+        <header class="header">
+            <div class="container header__container">
+                <h1 class="header__title">
+                    <a href="#" class="header__title-link">fmeina.rocks</a>
+                </h1>
+                <form action="?" class="header__search search">
+                    <input type="search" class="search__input" placeholder="Wpisz co chcesz wyszukać..." autofocus required>
+                </form>
+                <nav class="nav header__nav">
+                    <h2 class="nav__title">Nawigacja</h2>
+                    <ul class="nav__list">
+                        <li class="nav__item">
+                            <a href="#" class="nav__link">Ustawienia</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#" class="nav__link">Wyloguj się</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <div class="container main">
+            <nav class="main__sidebar sidebar">
+                <ul class="sidebar__list">
+                    <li class="sidebar__item">
+                        <a href="#" class="sidebar__link">
+                            <span class="fa fa-folder-o fa-fw sidebar__link-icon"></span>
+                            1 TI
+                        </a>
+                        <ul class="sidebar__list sidebar__list--sublist">
+                            <li class="sidebar__item">
+                                <a href="#" class="sidebar__link sidebar__link--active">
+                                    <span class="fa fa-file-o fa-fw sidebar__link-icon"></span>
+                                    Systemy operacyjne
+                                </a>
+                            </li>
+                            <li class="sidebar__item">
+                                <a href="#" class="sidebar__link">
+                                    <span class="fa fa-file-o fa-fw sidebar__link-icon"></span>
+                                    Fizyka
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar__item">
+                        <a href="#" class="sidebar__link">
+                            <span class="fa fa-folder-o fa-fw sidebar__link-icon"></span>
+                            2 TI
+                        </a>
+                    </li>
+                    <li class="sidebar__item">
+                        <a href="#" class="sidebar__link">
+                            <span class="fa fa-folder-o fa-fw sidebar__link-icon"></span>
+                            1 LSM
+                        </a>
+                    </li>
+                    <li class="sidebar__item">
+                        <a href="#" class="sidebar__link">
+                            <span class="fa fa-folder-o fa-fw sidebar__link-icon"></span>
+                            1 Ga
+                        </a>
+                    </li>
+                    <li class="sidebar__item">
+                        <a href="#" class="sidebar__link">
+                            <span class="fa fa-folder-o fa-fw sidebar__link-icon"></span>
+                            1 Gb
+                        </a>
+                    </li>
+                    <li class="sidebar__item">
+                        <a href="#" class="sidebar__link">
+                            <span class="fa fa-folder-o fa-fw sidebar__link-icon"></span>
+                            2 Ga
+                        </a>
+                    </li>
+                    <li class="sidebar__item">
+                        <a href="#" class="sidebar__link">
+                            <span class="fa fa-folder-o fa-fw sidebar__link-icon"></span>
+                            2 Gb
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <main class="hidden main__content content">
+                <img src="imgs/home2.svg" alt="" class="content__big-picture">
+            </main>
+            <main class="main__content content">
+                <header class="content__header">
+                    <h2 class="content__title">Lista plików</h2>
+                    <a href="#" class="btn btn--primary content__action">Dodaj plik</a>
+                </header>
+                <article class="wow fadeInUp file">
+                    <h3 class="file__title">System komputerowy</h3>
+                    <a href="#" class="file__download">
+                        <img src="imgs/pdf.svg" alt="Pobierz" class="file__download-icon">
+                    </a>
+                    <div class="file__description">
+                        <p>Pierwsza lekcja Systemów Operacyjnych. Co to są Systemy komputerowe, jak dzielimy zasoby komputera, coś tam iks de.</p>
+                    </div>
+                    <footer class="file__meta">
+                        <span class="file__filename">so_1.pdf</span>
+                        <span class="file__size">703,4kB</span>
+                        <span class="file__count">pobrano 997 razy</span>
+                    </footer>
+                </article>
+                <article class="wow fadeInUp file">
+                    <h3 class="file__title">Wstęp do systemów operacyjnych</h3>
+                    <a href="#" class="file__download">
+                        <img src="imgs/pdf.svg" alt="Pobierz" class="file__download-icon">
+                    </a>
+                    <div class="file__description">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam in congue nisi. Nulla tempor neque leo, in interdum dui egestas in.</p>
+                    </div>
+                    <footer class="file__meta">
+                        <span class="file__filename">so_2.pdf</span>
+                        <span class="file__size">86,0kB</span>
+                        <span class="file__count">pobrano 320 razy</span>
+                    </footer>
+                </article>
+                <article class="wow fadeInUp file">
+                    <h3 class="file__title">Nuta do słuchania do nauki na systemy</h3>
+                    <a href="#" class="file__download">
+                        <img src="imgs/mp3.svg" alt="Pobierz" class="file__download-icon">
+                    </a>
+                    <div class="file__description">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam in congue nisi. Nulla tempor neque leo, in interdum dui egestas in.</p>
+                    </div>
+                    <footer class="file__meta">
+                        <span class="file__filename">SO_MUSIC.mp3</span>
+                        <span class="file__size">6,84MB</span>
+                        <span class="file__count">pobrano 2683 razy</span>
+                    </footer>
+                </article>
+                <article class="wow fadeInUp file">
+                    <h3 class="file__title">Kozaczka meme</h3>
+                    <a href="#" class="file__download">
+                        <img src="imgs/jpg.svg" alt="Pobierz" class="file__download-icon">
+                    </a>
+                    <div class="file__description">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam in congue nisi. Nulla tempor neque leo, in interdum dui egestas in.</p>
+                    </div>
+                    <footer class="file__meta">
+                        <span class="file__filename">kozaczka_overburnt.jpg</span>
+                        <span class="file__size">13kB</span>
+                        <span class="file__count">pobrano 345 razy</span>
+                    </footer>
+                </article>
+            </main>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+        <script>new WOW().init();</script>
     </body>
 </html>

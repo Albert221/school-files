@@ -1,0 +1,17 @@
+*, :before, :after {
+    box-sizing: inherit;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+body {
+    color: #333;
+    background: #f3f3f3;
+    font: 16px Roboto, sans-serif;
+}
+
+img {
+    max-width: 100%;
+}

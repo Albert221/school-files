@@ -1,0 +1,23 @@
+.btn {
+    border-radius: 3px;
+    padding: 0 16px;
+    font-size: 14px;
+    line-height: 36px;
+    text-decoration: none;
+    // text-transform: uppercase;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .15);
+    transition: all .1s;
+
+    &--primary {
+        color: #fff;
+        background: $primaryColor;
+
+        &:hover, &:focus {
+            background: darken($primaryColor, 7%);
+        }
+    }
+
+    &:hover, &:focus {
+
+    }
+}

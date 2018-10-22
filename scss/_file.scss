@@ -1,0 +1,64 @@
+.file {
+    display: grid;
+    grid-template: "download title"
+        "download tags"
+        "download meta";
+    grid-gap: 15px;
+
+    margin-bottom: 25px;
+    border-radius: 3px;
+    padding: 15px;
+    background: #fff;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .15);
+
+    &__title {
+        grid-area: title;
+        margin: 0;
+    }
+
+    &__download {
+        grid-area: download;
+        align-self: start;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 3px;
+        padding: 15px 30px;
+    }
+
+    &__description {
+        grid-area: tags;
+
+        p:first-child {
+            margin-top: 0;
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &__meta {
+        grid-area: meta;
+        display: flex;
+        color: #777;
+        font-size: 14px;
+    }
+
+    &__filename,
+    &__size {
+        &::after {
+            content: " •";
+            display: inline-block;
+            margin: 0 5px 0 7px;
+        }
+    }
+
+    &__edit {
+        margin-left: auto;
+        color: $secondaryColor;
+        text-decoration: none;
+    }
+}
