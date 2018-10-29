@@ -3,6 +3,7 @@
     grid-template: "download title"
         "download tags"
         "download meta";
+    grid-template-columns: auto 1fr;
     grid-gap: 15px;
 
     margin-bottom: 25px;

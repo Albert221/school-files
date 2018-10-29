@@ -14,9 +14,6 @@
 
     &__content {
         flex: 1;
-
-        // debug
-        &:not(:target) { display: none; }
     }
 }
 
