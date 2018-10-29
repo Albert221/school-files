@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width">
         <title>School files</title>
         <link rel="stylesheet" href="dist/style.css">
-        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto&amp;subset=latin-ext" rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
     </head>
@@ -13,10 +13,10 @@
         <header class="header">
             <div class="container header__container">
                 <h1 class="header__title">
-                    <a href="#" class="header__title-link">fmeina.rocks</a>
+                    <a href="#home" class="header__title-link">fmeina.rocks</a>
                 </h1>
                 <form action="?" class="header__search search">
-                    <input type="search" class="search__input" placeholder="Wpisz co chcesz wyszukać..." autofocus required>
+                    <input type="search" class="search__input input" placeholder="Wpisz co chcesz wyszukać..." pattern=".{3,}" title="Co najmniej 3 znaki." autofocus required>
                 </form>
                 <nav class="nav header__nav">
                     <h2 class="nav__title">Nawigacja</h2>
@@ -25,7 +25,7 @@
                             <a href="#" class="nav__link">Ustawienia</a>
                         </li>
                         <li class="nav__item">
-                            <a href="#" class="nav__link">Wyloguj się</a>
+                            <a href="#signin" class="nav__link">Wyloguj się</a>
                         </li>
                     </ul>
                 </nav>
@@ -41,7 +41,7 @@
                         </a>
                         <ul class="sidebar__list sidebar__list--sublist">
                             <li class="sidebar__item">
-                                <a href="#" class="sidebar__link sidebar__link--active">
+                                <a href="#pliki" class="sidebar__link sidebar__link--active">
                                     <span class="fa fa-file-o fa-fw sidebar__link-icon"></span>
                                     Systemy operacyjne
                                 </a>
@@ -77,30 +77,6 @@
                     </li>
                     <li class="sidebar__item">
                         <a href="#" class="sidebar__link">
-                            <span class="fa fa-folder-o fa-fw sidebar__link-icon"></span>
-                            1 Ga
-                        </a>
-                    </li>
-                    <li class="sidebar__item">
-                        <a href="#" class="sidebar__link">
-                            <span class="fa fa-folder-o fa-fw sidebar__link-icon"></span>
-                            1 Gb
-                        </a>
-                    </li>
-                    <li class="sidebar__item">
-                        <a href="#" class="sidebar__link">
-                            <span class="fa fa-folder-o fa-fw sidebar__link-icon"></span>
-                            2 Ga
-                        </a>
-                    </li>
-                    <li class="sidebar__item">
-                        <a href="#" class="sidebar__link">
-                            <span class="fa fa-folder-o fa-fw sidebar__link-icon"></span>
-                            2 Gb
-                        </a>
-                    </li>
-                    <li class="sidebar__item">
-                        <a href="#" class="sidebar__link">
                             <span class="fa fa-plus fa-fw sidebar__link-icon"></span>
                             Dodaj klasę
                         </a>
@@ -113,13 +89,13 @@
                     </li>
                 </ul>
             </nav>
-            <main class="hidden main__content content">
+            <main class="main__content content" id="home">
                 <img src="imgs/home2.svg" alt="" class="content__big-picture">
             </main>
-            <main class="main__content content">
+            <main class="main__content content" id="pliki">
                 <header class="content__header">
                     <h2 class="content__title">Lista plików</h2>
-                    <a href="#" class="btn btn--primary content__action">Dodaj plik</a>
+                    <a href="#dodaj" class="btn btn--primary content__action">Dodaj plik</a>
                 </header>
                 <article class="file">
                     <h3 class="file__title">System komputerowy</h3>
@@ -191,6 +167,32 @@
                         <span class="file__count">pobrano 345 razy</span>
                     </footer>
                 </article>
+            </main>
+            <main class="main__content content content--centered" id="signin">
+                <header class="content__header">
+                    <h2 class="content__heading">Zaloguj się</h2>
+                </header>
+                <form action="#" class="form form--signin" method="POST">
+                    <label for="username" class="form__label">Nazwa użytkownika</label>
+                    <input type="text" id="username" name="username" class="input input--dark" placeholder="Nazwa użytkownika" required>
+                    <label for="password" class="form__label">Hasło</label>
+                    <input type="password" id="password" name="password" class="input input--dark" placeholder="Hasło" required>
+                    <input type="submit" class="btn btn--primary" value="Zaloguj się">
+                </form>
+            </main>
+            <main class="main__content content" id="dodaj">
+                <header class="content__header">
+                    <h2 class="content__heading">Dodaj plik</h2>
+                </header>
+                <form action="#" class="form" method="POST">
+                    <label for="name" class="form__label">Nazwa</label>
+                    <input type="text" id="name" name="name" class="input" placeholder="Nazwa" required>
+                    <label for="description" class="form__label">Opis pliku</label>
+                    <textarea id="description" name="description" rows="10" class="input" placeholder="Opis pliku" required></textarea>
+                    <label for="file" class="form__label">Plik</label>
+                    <input type="file" name="file" class="input" required>
+                    <input type="submit" class="btn btn--primary" value="Dodaj plik">
+                </form>
             </main>
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>

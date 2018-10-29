@@ -3,6 +3,10 @@
     margin-top: 50px;
     margin-bottom: 50px;
 
+    @media (max-width: 600px) {
+        flex-direction: column;
+    }
+
     &__sidebar {
         flex: 0 250px;
         margin-right: 30px;
@@ -10,19 +14,25 @@
 
     &__content {
         flex: 1;
+
+        // debug
+        &:not(:target) { display: none; }
     }
 }
 
 .sidebar {
-    position: sticky;
-    top: 0;
-    max-height: 100vh;
     align-self: flex-start;
     border-radius: 3px;
     padding: 8px;
     font-size: 14px;
     font-weight: bold;
-    overflow-y: auto;
+    
+    @media (min-width: 601px) {
+        position: sticky;
+        top: 0;
+        max-height: 100vh;
+        overflow-y: auto;
+    }
 
     &__list {
         margin: 0;
@@ -70,6 +80,13 @@
 
 .content {
     //
+
+    &--centered {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+    }
 
     &__header {
         display: flex;
