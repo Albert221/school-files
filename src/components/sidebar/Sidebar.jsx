@@ -1,74 +1,45 @@
 import React from 'react';
+import { toggleEditingSections, addSection, removeSection, addSubject, removeSubject } from '../../redux/actions';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import SidebarItem from './SidebarItem';
-import uuidv4 from 'uuid';
 
 class Sidebar extends React.Component {
-    state = {
-        isEditing: false,
-        sections: [
-            {
-                id: 1,
-                name: '1 TI',
-                classes: [
-                    {
-                        id: 1,
-                        name: 'Systemy operacyjne'
-                    }
-                ]
-            },
-            {
-                id: 2,
-                name: '2 TI',
-                classes: [
-                    {
-                        id: 2,
-                        name: 'Systemy operacyjne'
-                    },
-                    {
-                        id: 3,
-                        name: 'Sieci komputerowe'
-                    },
-                    {
-                        id: 4,
-                        name: 'ASSO'
-                    }
-                ]
-            }
-        ]
-    };
-
     constructor(props) {
         super(props);
 
         this.onClassClick = this.onClassClick.bind(this);
-        this.onEditSectionsClick = this.onEditSectionsClick.bind(this);
-        this.onAddSection = this.onAddSection.bind(this);
-        this.onRemoveSection = this.onRemoveSection.bind(this);
-        this.onAddClass = this.onAddClass.bind(this);
-        this.onRemoveClass = this.onRemoveClass.bind(this);
     }
 
     render() {
-        const {isEditing} = this.state;
+        const {
+            editingSections,
+            sections,
+            onEditSections,
+            onAddSection,
+            onRemoveSection,
+            onAddSubject,
+            onRemoveSubject
+        } = this.props;
 
         return (
             <nav className="main__sidebar sidebar">
                 <ul className="sidebar__list">
-                    {this.state.sections.map((section) =>
+                    {sections.map((section) =>
                         <SidebarItem key={section.id} name={section.name} icon="folder-o"
-                            editing={isEditing} onRemove={() => this.onRemoveSection(section.id)}>
-                            {section.classes.map((sectionClass) =>
-                                <SidebarItem key={sectionClass.id} name={sectionClass.name} icon="file-o"
-                                    editing={isEditing} to={`/class/${sectionClass.id}`}
-                                    onRemove={() => this.onRemoveClass(sectionClass.id)} />
+                            editing={editingSections} onRemove={() => onRemoveSection(section.id)}>
+                            {section.subjects.map((subject) =>
+                                <SidebarItem key={subject.id} name={subject.name} icon="file-o"
+                                    editing={editingSections} to={`/class/${subject.id}`}
+                                    onRemove={() => onRemoveSubject(subject.id)} />
                             )}
-                            {isEditing ? <SidebarItem name="Dodaj przedmiot" icon="plus"
-                                onClick={() => this.onAddClass(section.id)} /> : ''}
+                            {editingSections ? <SidebarItem name="Dodaj przedmiot" icon="plus"
+                                onClick={() => onAddSubject(section.id)} /> : ''}
                         </SidebarItem>
                     )}
-                    {isEditing ? <SidebarItem name="Dodaj sekcję" icon="plus" onClick={this.onAddSection} /> : ''}
-                    <SidebarItem name={isEditing ? 'Zakończ edycje' : 'Edytuj sekcje'}
-                        icon="wrench" onClick={this.onEditSectionsClick} />
+                    {editingSections ? <SidebarItem name="Dodaj sekcję" icon="plus" onClick={onAddSection} /> : ''}
+                    <SidebarItem name={editingSections ? 'Zakończ edycje' : 'Edytuj sekcje'}
+                        icon="wrench" onClick={onEditSections} />
                 </ul>
             </nav>
         );
@@ -77,46 +48,38 @@ class Sidebar extends React.Component {
     onClassClick(classId) {
         this.props.history.push(`/class/${classId}`);
     }
-
-    onEditSectionsClick() {
-        this.setState((state) => state.isEditing = !state.isEditing);
-    }
-
-    // TODO: Move logic below to Redux
-    onAddSection() {
-        const name = prompt('Podaj nazwę sekcji:');
-
-        if (name) {
-            this.setState((state) => state.sections.push({
-                id: uuidv4(),
-                name: name,
-                classes: []
-            }));
-        }
-    }
-
-    onRemoveSection(sectionId) {
-        this.setState((state) =>
-            state.sections = state.sections.filter((el) => el.id != sectionId));
-    }
-
-    onAddClass(sectionId) {
-        const name = prompt('Podaj nazwę przedmiotu:');
-
-        if (name) {
-            const section = this.state.sections.find((el) => el.id == sectionId);
-            this.setState(() => section.classes.push({
-                id: uuidv4(),
-                name: name,
-            }));
-        }
-    }
-
-    onRemoveClass(classId) {
-        this.setState((state) => state.sections.map((section) => {
-            section.classes = section.classes.filter((el) => el.id != classId);
-        }));
-    }
 }
 
-export default Sidebar;
+const mapStateToProps = state => {
+    return {
+        editingSections: state.editingSections,
+        sections: state.sections
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onEditSections: () => dispatch(toggleEditingSections()),
+        onAddSection: () => {
+            const name = prompt('Podaj nazwę sekcji:');
+            if (!name) return;
+
+            dispatch(addSection(name));
+        },
+        onRemoveSection: id => dispatch(removeSection(id)),
+        onAddSubject: sectionId => {
+            const name = prompt('Podaj nazwę przedmiotu:');
+            if (!name) return;
+
+            dispatch(addSubject(name, sectionId))
+        },
+        onRemoveSubject: id => dispatch(removeSubject(id))
+    };
+};
+
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(Sidebar)
+);

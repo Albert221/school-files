@@ -11,7 +11,7 @@ class FilesPage extends React.Component {
                 description: 'Podstawy na pierwsze lekcje',
                 filename: 'so_1.pdf',
                 size: '89kB',
-                downloaded: 153
+                downloaded: 153,
             },
             {
                 name: 'Kernel linuxa',
