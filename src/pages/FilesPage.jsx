@@ -31,12 +31,13 @@ class FilesPage extends React.Component {
     };
 
     render() {
-        const {files} = this.state;
+        const { files } = this.state;
+        const { id } = this.props.match.params;
 
         return (
             <div>
-                <PageHeader title="Lista plików">
-                    <Button href="" text="Dodaj plik" />
+                <PageHeader title={`Lista plików o id ${id}`}>
+                    <Button href={`/class/${id}/add`} text="Dodaj plik" action />
                 </PageHeader>
                 {files.map((file, i) =>
                     <File name={file.name} description={file.description} filename={file.filename}

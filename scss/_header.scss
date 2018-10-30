@@ -57,6 +57,7 @@
     }
 
     &__link {
+        position: relative;
         display: block;
         padding: 0 20px;
         color: #fff;
@@ -65,6 +66,21 @@
 
         &:hover, &:focus {
             background: lighten($secondaryColor, 7%);
+        }
+
+        &--active::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: -5px;
+
+            display: block;
+            width: 10px;
+            height: 10px;
+            margin: auto;
+            background: #fff;
+            transform: rotate(45deg);
         }
     }
 }
