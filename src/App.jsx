@@ -12,9 +12,13 @@ import HomePage from './pages/HomePage';
 import FilesPage from './pages/FilesPage';
 import AddFilePage from './pages/AddFilePage';
 import SignInPage from './pages/SignInPage';
+import { setCurrentSubject } from './redux/actions';
+import { connect } from 'react-redux';
 
 class App extends React.Component {
     render() {
+        const { onEnterClassPage } = this.props;
+
         return (
             <Router>
                 <div>
@@ -30,7 +34,8 @@ class App extends React.Component {
                     <Main sidebar={<Sidebar />}>
                         <Route exact path="/" component={HomePage} />
                         <Route exact path="/signin" component={SignInPage} />
-                        <Route exact path="/class/:id" component={FilesPage} />
+                        <Route exact path="/class/:id"
+                            render={props => <FilesPage subjectId={props.match.params.id} />} />
                         <Route exact path="/class/:id/add" component={AddFilePage} />
                     </Main>
                 </div>

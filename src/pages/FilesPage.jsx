@@ -1,43 +1,19 @@
 import React from 'react';
+import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
 import PageHeader from '../components/PageHeader';
 import Button from '../components/Button';
 import File from '../components/file/File';
+import { getSubjectBreadcrumbs } from '../redux/helpers/breadcrumbs';
 
 class FilesPage extends React.Component {
-    state = {
-        files: [
-            {
-                name: 'System komputerowy',
-                description: 'Podstawy na pierwsze lekcje',
-                filename: 'so_1.pdf',
-                size: '89kB',
-                downloaded: 153,
-            },
-            {
-                name: 'Kernel linuxa',
-                description: '',
-                filename: 'so_2.pdf',
-                size: '43kB',
-                downloaded: 328
-            },
-            {
-                name: 'Techno wixa na systemy',
-                description: 'Dobre nuty w sam raz na uczenie się na systemy',
-                filename: 'TECHNO_W1X4.mp3',
-                size: '16MB',
-                downloaded: 2213
-            }
-        ]
-    };
-
     render() {
-        const { files } = this.state;
-        const { id } = this.props.match.params;
+        const { files, subjectId, breadcrumbs } = this.props;
 
         return (
             <div>
-                <PageHeader title={`Lista plików o id ${id}`}>
-                    <Button href={`/class/${id}/add`} text="Dodaj plik" action />
+                <PageHeader title={`Lista plików w ${breadcrumbs}`}>
+                    <Button href={`/class/${subjectId}/add`} text="Dodaj plik" action />
                 </PageHeader>
                 {files.map((file, i) =>
                     <File name={file.name} description={file.description} filename={file.filename}
@@ -48,4 +24,17 @@ class FilesPage extends React.Component {
     }
 }
 
-export default FilesPage;
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        breadcrumbs: getSubjectBreadcrumbs(state, ownProps.subjectId),
+        files: state.files.filter(el => el.subjectId === ownProps.subjectId)
+    };
+};
+
+export default withRouter(
+    connect(
+        mapStateToProps,
+        null
+    )(FilesPage)
+);

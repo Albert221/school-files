@@ -28,5 +28,5 @@ export function removeSubject(id) {
 }
 
 export function addFile() {
-    return { type: ADD_FILE, name: name, description: description,  };
+    return { type: ADD_FILE, name: name, description: description };
 }

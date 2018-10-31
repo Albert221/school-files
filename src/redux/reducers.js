@@ -17,22 +17,6 @@ function editingSections(state = false, action) {
     }
 }
 
-const initialSections = [
-    {
-        id: '77cc92d2-2050-4f8b-8e0b-3dd0c8665e81',
-        name: '2 TI',
-        subjects: [
-            {
-                id: '54ed3668-fdc3-4fb5-8354-c97c516dbdad',
-                name: 'Systemy operacyjne'
-            },
-            {
-                id: '357a26f9-cb69-427b-9fcb-6724e0f31fe8',
-                name: 'Sieci komputerowe'
-            }
-        ]
-    }
-];
 function sections(state = [], action) {
     switch (action.type) {
         case ADD_SECTION:
