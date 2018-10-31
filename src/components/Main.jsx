@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Main = (props) => {
     return (
@@ -9,6 +10,11 @@ const Main = (props) => {
             </main>
         </div>
     );
+};
+
+Main.propTypes = {
+    sidebar: PropTypes.node,
+    children: PropTypes.node.isRequired
 };
 
 export default Main;

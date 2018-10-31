@@ -2,6 +2,7 @@ import React from 'react';
 import { toggleEditingSections, addSection, removeSection, addSubject, removeSubject } from '../../redux/actions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import SidebarItem from './SidebarItem';
 
 class Sidebar extends React.Component {
@@ -49,6 +50,23 @@ class Sidebar extends React.Component {
         this.props.history.push(`/class/${classId}`);
     }
 }
+
+Sidebar.propTypes = {
+    editingSections: PropTypes.bool.isRequired,
+    sections: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        subjects: PropTypes.arrayOf(PropTypes.shape({
+            id: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired
+        }).isRequired).isRequired
+    }).isRequired).isRequired,
+    onEditSections: PropTypes.func.isRequired,
+    onAddSection: PropTypes.func.isRequired,
+    onRemoveSection: PropTypes.func.isRequired,
+    onAddSubject: PropTypes.func.isRequired,
+    onRemoveSubject: PropTypes.func.isRequired
+};
 
 const mapStateToProps = state => {
     return {

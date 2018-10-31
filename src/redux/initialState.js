@@ -23,7 +23,7 @@ export default {
             name: 'System komputerowy',
             description: 'Podstawy na pierwsze lekcje, co to jest kernel, software, hardware itd. itp.',
             filename: 'so_1.pdf',
-            size: '68387',
+            size: 68387,
             downloaded: 452
         }
     ]

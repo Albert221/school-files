@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const SidebarItem = (props) => {
     const iconClasses = classNames(
@@ -38,6 +39,16 @@ const SidebarItem = (props) => {
                 </ul> : ''}
         </li>
     );
+};
+
+SidebarItem.propTypes = {
+    to: PropTypes.string,
+    onClick: PropTypes.func,
+    icon: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    editing: PropTypes.bool,
+    onRemove: PropTypes.func,
+    children: PropTypes.node
 };
 
 export default SidebarItem;

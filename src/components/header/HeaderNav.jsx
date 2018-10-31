@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const HeaderNav = (props) => {
     return (
@@ -9,6 +10,10 @@ const HeaderNav = (props) => {
             </ul>
         </nav>
     );
+};
+
+HeaderNav.propTypes = {
+    children: PropTypes.node.isRequired
 };
 
 export default HeaderNav;

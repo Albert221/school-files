@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const PageHeader = (props) => {
     return (
@@ -7,6 +8,11 @@ const PageHeader = (props) => {
             {props.children}
         </header>
     );
+};
+
+PageHeader.propTypes = {
+    title: PropTypes.string.isRequired,
+    children: PropTypes.node
 };
 
 export default PageHeader;

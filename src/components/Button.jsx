@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
 const Button = (props) => {
     const classes = classNames('btn', 'btn--primary', {
@@ -13,6 +14,13 @@ const Button = (props) => {
             {props.text}
         </Link>
     ;
+};
+
+Button.propTypes = {
+    action: PropTypes.bool,
+    href: PropTypes.string,
+    submit: PropTypes.bool,
+    text: PropTypes.string.isRequired
 };
 
 export default Button;

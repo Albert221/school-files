@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const File = (props) => {
     const times = props.downloaded == 1 ? 'raz' : 'razy';
@@ -20,6 +21,14 @@ const File = (props) => {
             </footer>
         </article>
     );
+};
+
+File.propTypes = {
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    filename: PropTypes.string.isRequired,
+    size: PropTypes.number.isRequired,
+    downloaded: PropTypes.number.isRequired
 };
 
 export default File;

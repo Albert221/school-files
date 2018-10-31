@@ -12,13 +12,9 @@ import HomePage from './pages/HomePage';
 import FilesPage from './pages/FilesPage';
 import AddFilePage from './pages/AddFilePage';
 import SignInPage from './pages/SignInPage';
-import { setCurrentSubject } from './redux/actions';
-import { connect } from 'react-redux';
 
 class App extends React.Component {
     render() {
-        const { onEnterClassPage } = this.props;
-
         return (
             <Router>
                 <div>

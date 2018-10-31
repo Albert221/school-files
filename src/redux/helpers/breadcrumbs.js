@@ -4,5 +4,5 @@ export function getSubjectBreadcrumbs(state, subjectId) {
         if (subject) {
             return `${section.name}/${subject.name}`;
         }
-    });
+    })[0];
 }
