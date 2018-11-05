@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { ADD_SECTION, REMOVE_SECTION, ADD_SUBJECT, REMOVE_SUBJECT, TOGGLE_EDITING_SECTIONS, ADD_FILE_PROGRESS, ADD_FILE_REQUEST, addFileProgress, ADD_FILE_RESPONSE } from './actions';
+import { ADD_SECTION, REMOVE_SECTION, ADD_SUBJECT, REMOVE_SUBJECT, TOGGLE_EDITING_SECTIONS, ADD_FILE, UPLOAD_PROGRESS } from './actions';
 import uuidv4 from 'uuid/v4';
 
 const schoolFilesState = combineReducers({
@@ -61,7 +61,7 @@ function sections(state = [], action) {
 
 function files(state = [], action) {
     switch (action.type) {
-        case ADD_FILE_RESPONSE:
+        case ADD_FILE:
             return [
                 ...state,
                 {
@@ -81,7 +81,7 @@ function files(state = [], action) {
 
 function uploadProgress(state = false, action) {
     switch (action.type) {
-        case ADD_FILE_PROGRESS:
+        case UPLOAD_PROGRESS:
             return action.progress;
         default:
             return state;

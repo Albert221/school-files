@@ -28,12 +28,13 @@ class AddFileForm extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         const { name, description, file } = this.state;
+        const { subjectId } = this.props;
 
         this.props.onSubmit({
             name: name,
             description: description,
             file: file,
-            subjectId: this.props.subjectId
+            subjectId: subjectId
         });
     }
 
