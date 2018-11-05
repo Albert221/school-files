@@ -1,23 +1,32 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import PageHeader from '../components/PageHeader';
-import Button from '../components/Button';
+import AddFileForm from '../components/AddFileForm';
+import { addFile } from '../redux/actions';
+import { connect } from 'react-redux';
 
-const AddFilePage = (props) => {
+const AddFilePage = ({ progress, onSubmit, subjectId }) => {
     return (
         <div>
             <PageHeader title="Dodawanie pliku" />
-            <form action="#" className="form" method="POST">
-                <label htmlFor="name" className="form__label">Nazwa</label>
-                <input type="text" id="name" className="input" placeholder="Nazwa" required />
-                <label htmlFor="description" className="form__label">Opis pliku</label>
-                <textarea id="description" rows="10" className="input" placeholder="Opis pliku" required></textarea>
-                <label htmlFor="file" className="form__label">Plik</label>
-                <input type="file" id="file" className="input" required 
-                />
-                <Button text="Dodaj plik" submit />
-            </form>
+            <AddFileForm subjectId={subjectId} progress={progress} onSubmit={onSubmit} />
         </div>
     );
 };
 
-export default AddFilePage;
+AddFilePage.propTypes = {
+    subjectId: PropTypes.string.isRequired
+};
+
+const mapStateToProps = state => ({
+    progress: state.uploadProgress
+});
+
+const mapDispatchToProps = {
+    onSubmit: addFile
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(AddFilePage);

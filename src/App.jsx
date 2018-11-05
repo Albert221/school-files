@@ -22,8 +22,6 @@ class App extends React.Component {
                         <HeaderTitle />
                         <HeaderSearch />
                         <HeaderNav>
-                            {/* <HeaderNavItem href="#" name="Ustawienia" />
-                            <HeaderNavItem href="#" name="Wyloguj się" /> */}
                             <HeaderNavItem href="/signin" name="Zaloguj się" />
                         </HeaderNav>
                     </Header>
@@ -32,7 +30,8 @@ class App extends React.Component {
                         <Route exact path="/signin" component={SignInPage} />
                         <Route exact path="/class/:id"
                             render={props => <FilesPage subjectId={props.match.params.id} />} />
-                        <Route exact path="/class/:id/add" component={AddFilePage} />
+                        <Route exact path="/class/:id/add"
+                            render={props => <AddFilePage subjectId={props.match.params.id} />} />
                     </Main>
                 </div>
             </Router>

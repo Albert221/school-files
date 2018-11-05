@@ -26,5 +26,6 @@ export default {
             size: 68387,
             downloaded: 452
         }
-    ]
+    ],
+    uploadProgress: false
 };
