@@ -35,9 +35,10 @@ export function removeSubject(id) {
 export const addFile = file => dispatch => {
     return api
         .addFile(file, progress => dispatch(uploadProgress(progress)))
-        .then(() => {
+        .then(createdId => {
             dispatch(addFileResponse({
                 ...file,
+                id: createdId,
                 filename: file.file.name,
                 size: file.file.size
             }));

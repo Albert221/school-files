@@ -65,12 +65,12 @@ function files(state = [], action) {
             return [
                 ...state,
                 {
-                    id: uuidv4(),
+                    id: action.id,
                     subjectId: action.subjectId,
                     name: action.name,
                     description: action.description,
-                    filename: action.file.name,
-                    size: action.file.size,
+                    filename: action.filename,
+                    size: action.size,
                     downloaded: 0
                 }
             ];
