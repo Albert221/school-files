@@ -1,17 +1,20 @@
 const path = require('path');
 const webpack = require('webpack');
 
+let entry = [
+    process.env.NODE_ENV === 'production' ? ''
+            : 'webpack-dev-server/client?http://localhost:8080',
+    'babel-polyfill',
+    './src/index.js'
+].filter(el => el !== '');
+
 module.exports = {
     devtool: 'eval',
-    entry: [
-        'webpack-dev-server/client?http://localhost:8080',
-        'babel-polyfill',
-        './src/index.js'
-    ],
+    entry: entry,
     output: {
         path: path.join(__dirname, 'dist'),
         filename: 'bundle.js',
-        publicPath: '/build/'
+        publicPath: '/dist/'
     },
     module: {
         loaders: [
