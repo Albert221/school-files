@@ -12,9 +12,17 @@ import HomePage from './pages/HomePage';
 import FilesPage from './pages/FilesPage';
 import AddFilePage from './pages/AddFilePage';
 import SignInPage from './pages/SignInPage';
+import { loadJwt } from './redux/actions';
+import { connect } from 'react-redux';
 
 class App extends React.Component {
+    componentDidMount() {
+        this.props.loadJwt();
+    }
+
     render() {
+        const { signedIn } = this.props;
+
         return (
             <Router>
                 <div>
@@ -22,7 +30,10 @@ class App extends React.Component {
                         <HeaderTitle />
                         <HeaderSearch />
                         <HeaderNav>
-                            <HeaderNavItem href="/signin" name="Zaloguj się" />
+                            {signedIn ?
+                                <HeaderNavItem href="/signout" name="Wyloguj się" />
+                                : <HeaderNavItem href="/signin" name="Zaloguj się" />
+                            }
                         </HeaderNav>
                     </Header>
                     <Main sidebar={<Sidebar />}>
@@ -39,4 +50,15 @@ class App extends React.Component {
     }
 }
 
-export default App;
+const mapStateToProps = state => ({
+    signedIn: state.signedIn
+});
+
+const mapDispatchToProps = dispatch => ({
+    loadJwt: () => dispatch(loadJwt())
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(App);

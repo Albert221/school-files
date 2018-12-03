@@ -3,7 +3,7 @@ const webpack = require('webpack');
 
 let entry = [
     process.env.NODE_ENV === 'production' ? ''
-            : 'webpack-dev-server/client?http://localhost:8080',
+        : 'webpack-dev-server/client?http://localhost:8080',
     'babel-polyfill',
     './src/index.js'
 ].filter(el => el !== '');

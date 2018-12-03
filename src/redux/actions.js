@@ -1,10 +1,14 @@
-import axios from 'axios';
 import * as api from '../api';
+
+export const SIGNED_IN = 'SIGNED_IN';
 
 export const TOGGLE_EDITING_SECTIONS = 'TOGGLE_EDITING_SECTIONS';
 
-export const ADD_SECTION = 'ADD_SECTION';
-export const REMOVE_SECTION = 'REMOVE_SECTION';
+export const FETCHED_MENU = 'FETCHED_MENU';
+
+export const ADDED_SECTION = 'ADDED_SECTION';
+export const REMOVED_SECTION = 'REMOVED_SECTION';
+
 export const ADD_SUBJECT = 'ADD_SUBJECT';
 export const REMOVE_SUBJECT = 'REMOVE_SUBJECT';
 
@@ -12,16 +16,70 @@ export const ADD_FILE = 'ADD_FILE_REQUEST';
 
 export const UPLOAD_PROGRESS = 'UPLOAD_PROGRESS';
 
+export const signIn = (email, password) => dispatch => {
+    return api
+        .signIn(email, password)
+        .then(jwt => {
+            sessionStorage.setItem('userJwt', jwt);
+            dispatch(signedIn());
+        });
+};
+
+export const loadJwt = () => dispatch => {
+    const jwt = sessionStorage.getItem('userJwt');
+    if (!jwt || jwt === '') {
+        return;
+    }
+
+    dispatch(signedIn());
+};
+
+export function signedIn() {
+    return { type: SIGNED_IN };
+}
+
 export function toggleEditingSections() {
     return { type: TOGGLE_EDITING_SECTIONS };
 }
 
-export function addSection(name) {
-    return { type: ADD_SECTION, name: name };
+export const fetchMenu = () => dispatch => {
+    return api
+        .fetchMenu()
+        .then(data => data.map(section => ({
+            id: section.id,
+            name: section.name,
+            slug: section.slug,
+            subjects: section.subjects.map(subject => ({
+                id: subject.id,
+                name: subject.name,
+                slug: subject.slug
+            }))
+        })))
+        .then(sections => dispatch(fetchedMenu(sections)));
 }
 
-export function removeSection(id) {
-    return { type: REMOVE_SECTION, id: id };
+export function fetchedMenu(sections) {
+    return { type: FETCHED_MENU, sections: sections };
+}
+
+export const addSection = name => dispatch => {
+    return api
+        .addSection(name)
+        .then(section => dispatch(addedSection(section)));
+}
+
+export function addedSection(section) {
+    return { type: ADDED_SECTION, section: section };
+}
+
+export const removeSection = id => dispatch => {
+    return api
+        .removeSection(id)
+        .then(() => dispatch(removedSection(id)));
+}
+
+export function removedSection(id) {
+    return { type: REMOVED_SECTION, id: id };
 }
 
 export function addSubject(name, sectionId) {

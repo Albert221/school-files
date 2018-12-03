@@ -1,5 +1,5 @@
 import React from 'react';
-import { toggleEditingSections, addSection, removeSection, addSubject, removeSubject } from '../../redux/actions';
+import { toggleEditingSections, fetchMenu, addSection, removeSection, addSubject, removeSubject } from '../../redux/actions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -10,6 +10,10 @@ class Sidebar extends React.Component {
         super(props);
 
         this.onClassClick = this.onClassClick.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.fetchMenu();
     }
 
     render() {
@@ -61,6 +65,7 @@ Sidebar.propTypes = {
             name: PropTypes.string.isRequired
         }).isRequired).isRequired
     }).isRequired).isRequired,
+    fetchMenu: PropTypes.func.isRequired,
     onEditSections: PropTypes.func.isRequired,
     onAddSection: PropTypes.func.isRequired,
     onRemoveSection: PropTypes.func.isRequired,
@@ -68,32 +73,29 @@ Sidebar.propTypes = {
     onRemoveSubject: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => {
-    return {
-        editingSections: state.editingSections,
-        sections: state.sections
-    };
-};
+const mapStateToProps = state => ({
+    editingSections: state.editingSections,
+    sections: state.sections
+});
 
-const mapDispatchToProps = dispatch => {
-    return {
-        onEditSections: () => dispatch(toggleEditingSections()),
-        onAddSection: () => {
-            const name = prompt('Podaj nazwę sekcji:');
-            if (!name) return;
+const mapDispatchToProps = dispatch => ({
+    fetchMenu: () => dispatch(fetchMenu()),
+    onEditSections: () => dispatch(toggleEditingSections()),
+    onAddSection: () => {
+        const name = prompt('Podaj nazwę sekcji:');
+        if (!name) return;
 
-            dispatch(addSection(name));
-        },
-        onRemoveSection: id => dispatch(removeSection(id)),
-        onAddSubject: sectionId => {
-            const name = prompt('Podaj nazwę przedmiotu:');
-            if (!name) return;
+        dispatch(addSection(name));
+    },
+    onRemoveSection: id => dispatch(removeSection(id)),
+    onAddSubject: sectionId => {
+        const name = prompt('Podaj nazwę przedmiotu:');
+        if (!name) return;
 
-            dispatch(addSubject(name, sectionId))
-        },
-        onRemoveSubject: id => dispatch(removeSubject(id))
-    };
-};
+        dispatch(addSubject(name, sectionId))
+    },
+    onRemoveSubject: id => dispatch(removeSubject(id))
+});
 
 export default withRouter(
     connect(
