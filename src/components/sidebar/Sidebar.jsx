@@ -18,6 +18,7 @@ class Sidebar extends React.Component {
 
     render() {
         const {
+            signedIn,
             editingSections,
             sections,
             onEditSections,
@@ -43,8 +44,10 @@ class Sidebar extends React.Component {
                         </SidebarItem>
                     )}
                     {editingSections ? <SidebarItem name="Dodaj sekcję" icon="plus" onClick={onAddSection} /> : ''}
-                    <SidebarItem name={editingSections ? 'Zakończ edycje' : 'Edytuj sekcje'}
-                        icon="wrench" onClick={onEditSections} />
+                    {signedIn ? 
+                        <SidebarItem name={editingSections ? 'Zakończ edycje' : 'Edytuj sekcje'}
+                            icon="wrench" onClick={onEditSections} />
+                        : null}
                 </ul>
             </nav>
         );
@@ -56,6 +59,7 @@ class Sidebar extends React.Component {
 }
 
 Sidebar.propTypes = {
+    signedIn: PropTypes.bool.isRequired,
     editingSections: PropTypes.bool.isRequired,
     sections: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.string.isRequired,
@@ -74,6 +78,7 @@ Sidebar.propTypes = {
 };
 
 const mapStateToProps = state => ({
+    signedIn: state.signedIn,
     editingSections: state.editingSections,
     sections: state.sections
 });

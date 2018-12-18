@@ -9,7 +9,7 @@ export const FETCHED_MENU = 'FETCHED_MENU';
 export const ADDED_SECTION = 'ADDED_SECTION';
 export const REMOVED_SECTION = 'REMOVED_SECTION';
 
-export const ADD_SUBJECT = 'ADD_SUBJECT';
+export const ADDED_SUBJECT = 'ADDED_SUBJECT';
 export const REMOVE_SUBJECT = 'REMOVE_SUBJECT';
 
 export const ADD_FILE = 'ADD_FILE_REQUEST';
@@ -82,8 +82,14 @@ export function removedSection(id) {
     return { type: REMOVED_SECTION, id: id };
 }
 
-export function addSubject(name, sectionId) {
-    return { type: ADD_SUBJECT, name: name, sectionId: sectionId };
+export const addSubject = (name, sectionId) => dispatch => {
+    return api
+        .addSubject(name, sectionId)
+        .then(subject => dispatch(addedSubject(subject)));
+};
+
+export function addedSubject(subject) {
+    return { type: ADDED_SUBJECT, subject: subject };
 }
 
 export function removeSubject(id) {

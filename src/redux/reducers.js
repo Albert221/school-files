@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { FETCHED_MENU, ADDED_SECTION, REMOVED_SECTION, ADD_SUBJECT, REMOVE_SUBJECT, TOGGLE_EDITING_SECTIONS, ADD_FILE, UPLOAD_PROGRESS, SIGNED_IN } from './actions';
+import { FETCHED_MENU, ADDED_SECTION, REMOVED_SECTION, ADDED_SUBJECT, REMOVE_SUBJECT, TOGGLE_EDITING_SECTIONS, ADD_FILE, UPLOAD_PROGRESS, SIGNED_IN } from './actions';
 import uuidv4 from 'uuid/v4';
 
 const schoolFilesState = combineReducers({
@@ -39,19 +39,17 @@ function sections(state = [], action) {
             ];
         case REMOVED_SECTION:
             return state.filter(el => el.id !== action.id);
-        case ADD_SUBJECT:
-            const section = state.find(el => el.id === action.sectionId);
+        case ADDED_SUBJECT:
+            const sectionId = action.subject.sectionId;
+            const section = state.find(el => el.id === sectionId);
 
             return [
-                ...state.filter(el => el.id !== action.sectionId),
+                ...state.filter(el => el.id !== sectionId),
                 {
                     ...section,
                     subjects: [
                         ...section.subjects,
-                        {
-                            id: uuidv4(),
-                            name: action.name
-                        }
+                        action.subject
                     ]
                 }
             ];

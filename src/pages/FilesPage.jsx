@@ -27,7 +27,7 @@ class FilesPage extends React.Component {
 
 FilesPage.propTypes = {
     subjectId: PropTypes.string.isRequired,
-    breadcrumbs: PropTypes.string.isRequired,
+    breadcrumbs: PropTypes.string,
     files: PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.string.isRequired,
         description: PropTypes.string.isRequired,

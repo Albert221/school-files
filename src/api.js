@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8181';
+const API_URL = 'http://localhost:8000';
 
 const axiosInstance = axios.create({
     baseURL: API_URL,
@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
         (data, headers) => {
             const jwt = sessionStorage.getItem('userJwt');
             if (!jwt || jwt === '') {
-                return;
+                return data;
             }
 
             headers['Authorization'] = `Bearer ${jwt}`;
@@ -19,24 +19,31 @@ const axiosInstance = axios.create({
 });
 
 export const signIn = (email, password) => axiosInstance
-    .post('/auth/local', {
-        identifier: email,
+    .post('/signin', {
+        email: email,
         password: password
     })
-    .then(response => response.data.jwt);
+    .then(response => response.data.token);
 
 export const fetchMenu = () => axiosInstance
-    .get('/sections')
+    .get('/section')
     .then(response => response.data);
 
 export const addSection = name => axiosInstance
-    .post('/sections', {
+    .post('/section', {
         name: name
     })
     .then(response => response.data);
 
 export const removeSection = id => axiosInstance
-    .delete(`/sections/${id}`);
+    .delete(`/section/${id}`);
+
+export const addSubject = (name, sectionId) => axiosInstance
+    .post('/subject', {
+        name: name,
+        sectionId, sectionId
+    })
+    .then(response => response.data);
 
 export const addFile = (file, uploadProgress) => axiosInstance
     .post('/file', new FormData(file), {
