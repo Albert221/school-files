@@ -41,9 +41,12 @@ export const removeSection = id => axiosInstance
 export const addSubject = (name, sectionId) => axiosInstance
     .post('/subject', {
         name: name,
-        sectionId, sectionId
+        sectionId: sectionId
     })
     .then(response => response.data);
+
+export const removeSubject = id => axiosInstance
+    .delete(`/subject/${id}`);
 
 export const addFile = (file, uploadProgress) => axiosInstance
     .post('/file', new FormData(file), {

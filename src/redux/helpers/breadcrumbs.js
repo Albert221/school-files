@@ -4,6 +4,7 @@ export function getSubjectBreadcrumbs(state, subjectId) {
         if (subject) {
             return `${section.name}/${subject.name}`;
         }
+
         return null;
     }).find(el => el !== null);
 }

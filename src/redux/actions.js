@@ -1,6 +1,7 @@
 import * as api from '../api';
 
 export const SIGNED_IN = 'SIGNED_IN';
+export const SIGNED_OUT = 'SIGNED_OUT';
 
 export const TOGGLE_EDITING_SECTIONS = 'TOGGLE_EDITING_SECTIONS';
 
@@ -10,7 +11,7 @@ export const ADDED_SECTION = 'ADDED_SECTION';
 export const REMOVED_SECTION = 'REMOVED_SECTION';
 
 export const ADDED_SUBJECT = 'ADDED_SUBJECT';
-export const REMOVE_SUBJECT = 'REMOVE_SUBJECT';
+export const REMOVED_SUBJECT = 'REMOVED_SUBJECT';
 
 export const ADD_FILE = 'ADD_FILE_REQUEST';
 
@@ -36,6 +37,16 @@ export const loadJwt = () => dispatch => {
 
 export function signedIn() {
     return { type: SIGNED_IN };
+}
+
+export const signOut = () => dispatch => {
+    sessionStorage.setItem('userJwt', null);
+
+    dispatch(signedOut());
+};
+
+export function signedOut() {
+    return { type: SIGNED_OUT };
 }
 
 export function toggleEditingSections() {
@@ -92,8 +103,14 @@ export function addedSubject(subject) {
     return { type: ADDED_SUBJECT, subject: subject };
 }
 
-export function removeSubject(id) {
-    return { type: REMOVE_SUBJECT, id: id };
+export const removeSubject = id => dispatch => {
+    return api
+        .removeSubject(id)
+        .then(() => dispatch(removedSubject(id)))
+};
+
+export function removedSubject(id) {
+    return { type: REMOVED_SUBJECT, id: id };
 }
 
 export const addFile = file => dispatch => {

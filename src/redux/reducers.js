@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
-import { FETCHED_MENU, ADDED_SECTION, REMOVED_SECTION, ADDED_SUBJECT, REMOVE_SUBJECT, TOGGLE_EDITING_SECTIONS, ADD_FILE, UPLOAD_PROGRESS, SIGNED_IN } from './actions';
-import uuidv4 from 'uuid/v4';
+import { FETCHED_MENU, ADDED_SECTION, REMOVED_SECTION, ADDED_SUBJECT, REMOVED_SUBJECT, TOGGLE_EDITING_SECTIONS, ADD_FILE, UPLOAD_PROGRESS, SIGNED_IN, SIGNED_OUT } from './actions';
 
 const schoolFilesState = combineReducers({
     signedIn,
@@ -14,6 +13,8 @@ function signedIn(state = false, action) {
     switch (action.type) {
         case SIGNED_IN:
             return true;
+        case SIGNED_OUT:
+            return false;
         default:
             return state;
     }
@@ -40,7 +41,7 @@ function sections(state = [], action) {
         case REMOVED_SECTION:
             return state.filter(el => el.id !== action.id);
         case ADDED_SUBJECT:
-            const sectionId = action.subject.sectionId;
+            const sectionId = action.subject.section.id;
             const section = state.find(el => el.id === sectionId);
 
             return [
@@ -53,7 +54,7 @@ function sections(state = [], action) {
                     ]
                 }
             ];
-        case REMOVE_SUBJECT:
+        case REMOVED_SUBJECT:
             return state.map(el => {
                 return {
                     ...el,
@@ -67,19 +68,7 @@ function sections(state = [], action) {
 
 function files(state = [], action) {
     switch (action.type) {
-        case ADD_FILE:
-            return [
-                ...state,
-                {
-                    id: action.id,
-                    subjectId: action.subjectId,
-                    name: action.name,
-                    description: action.description,
-                    filename: action.filename,
-                    size: action.size,
-                    downloaded: 0
-                }
-            ];
+        
         default:
             return state;
     }
