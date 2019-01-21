@@ -24,6 +24,8 @@ function editingSections(state = false, action) {
     switch (action.type) {
         case TOGGLE_EDITING_SECTIONS:
             return !state;
+        case SIGNED_OUT:
+            return false;
         default:
             return state;
     }

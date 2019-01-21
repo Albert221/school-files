@@ -40,7 +40,7 @@ export function signedIn() {
 }
 
 export const signOut = () => dispatch => {
-    sessionStorage.setItem('userJwt', null);
+    sessionStorage.removeItem('userJwt');
 
     dispatch(signedOut());
 };
