@@ -9,9 +9,23 @@ import { getSubjectBreadcrumbs } from '../redux/helpers/breadcrumbs';
 import { fetchFiles } from '../redux/actions';
 
 class FilesPage extends React.Component {
-    componentWillMount() {
+    constructor() {
+        super();
+        this.state = {lastSubjectId: null};
+    }
+
+    componentDidUpdate() {
+        this.fetchFiles();
+    }
+
+    fetchFiles() {
         const { subjectId, fetchFiles } = this.props;
 
+        if (this.state.lastSubjectId == subjectId) {
+            // Don't do anything if last subject id is the same as current.
+            return;
+        }
+        this.setState({lastSubjectId: subjectId});
         fetchFiles(subjectId);
     }
 

@@ -119,7 +119,8 @@ export const addFile = fileForm => dispatch => {
     return api
         .uploadFile(fileForm.file, progress => dispatch(uploadProgress(progress)))
         .then(uploadedFilename => api.addFile({ filename: uploadedFilename, ...fileForm }))
-        .then(file => dispatch(addedFile(file)));
+        .then(file => dispatch(addedFile(file)))
+        .then(() => dispatch(fetchFiles(fileForm.subjectId)));
 }
 
 export function addedFile(file) {
