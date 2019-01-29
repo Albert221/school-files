@@ -17,6 +17,8 @@ export const ADD_FILE = 'ADD_FILE_REQUEST';
 
 export const UPLOAD_PROGRESS = 'UPLOAD_PROGRESS';
 
+export const FETCHED_FILES = 'FETCHED_FILES';
+
 export const signIn = (email, password) => dispatch => {
     return api
         .signIn(email, password)
@@ -113,23 +115,27 @@ export function removedSubject(id) {
     return { type: REMOVED_SUBJECT, id: id };
 }
 
-export const addFile = file => dispatch => {
+export const addFile = fileForm => dispatch => {
     return api
-        .addFile(file, progress => dispatch(uploadProgress(progress)))
-        .then(createdId => {
-            dispatch(addFileResponse({
-                ...file,
-                id: createdId,
-                filename: file.file.name,
-                size: file.file.size
-            }));
-        });
+        .uploadFile(fileForm.file, progress => dispatch(uploadProgress(progress)))
+        .then(uploadedFilename => api.addFile({ filename: uploadedFilename, ...fileForm }))
+        .then(file => dispatch(addedFile(file)));
 }
 
-export function addFileResponse(file) {
+export function addedFile(file) {
     return { type: ADD_FILE, ...file };
 }
 
 export function uploadProgress(progress) {
     return { type: UPLOAD_PROGRESS, progress: progress };
+}
+
+export const fetchFiles = subjectId => dispatch => {
+    return api
+        .fetchFiles(subjectId)
+        .then(files => dispatch(fetchedFiles(files)));
+}
+
+export function fetchedFiles(files) {
+    return { type: FETCHED_FILES, files: files };
 }

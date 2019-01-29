@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { FETCHED_MENU, ADDED_SECTION, REMOVED_SECTION, ADDED_SUBJECT, REMOVED_SUBJECT, TOGGLE_EDITING_SECTIONS, ADD_FILE, UPLOAD_PROGRESS, SIGNED_IN, SIGNED_OUT } from './actions';
+import { FETCHED_MENU, ADDED_SECTION, REMOVED_SECTION, ADDED_SUBJECT, REMOVED_SUBJECT, TOGGLE_EDITING_SECTIONS, ADD_FILE, UPLOAD_PROGRESS, SIGNED_IN, SIGNED_OUT, FETCHED_FILES } from './actions';
 
 const schoolFilesState = combineReducers({
     signedIn,
@@ -70,7 +70,8 @@ function sections(state = [], action) {
 
 function files(state = [], action) {
     switch (action.type) {
-        
+        case FETCHED_FILES:
+            return action.files;
         default:
             return state;
     }

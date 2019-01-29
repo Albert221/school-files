@@ -48,13 +48,38 @@ export const addSubject = (name, sectionId) => axiosInstance
 export const removeSubject = id => axiosInstance
     .delete(`/subject/${id}`);
 
-export const addFile = (file, uploadProgress) => axiosInstance
-    .post('/file', new FormData(file), {
-        onUploadProgress: event => {
-            uploadProgress(Math.round(event.loaded * 100 / event.total));
-        },
-        validateStatus: () => true
+export function uploadFile(file, uploadProgress) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return axiosInstance
+        .post('/file/upload', formData, {
+            onUploadProgress: event => {
+                uploadProgress(Math.round(event.loaded * 100 / event.total));
+            },
+            validateStatus: () => true
+        })
+        .then(response => response.data.filename);
+}
+
+export const addFile = ({ name, description, filename, subjectId }) => axiosInstance
+    .post(`/subject/${subjectId}/file`, {
+        name: name,
+        description: description,
+        filename: filename
     })
-    .then(response => {
-        return response.headers.location.split('/').pop();
-    });
+    .then(response => response.data);
+
+export const fetchFiles = subjectId => axiosInstance
+    .get(`/subject/${subjectId}/file`)
+    .then(response => response.data)
+    .then(data => data.map(file => ({
+        id: file.id,
+        name: file.name,
+        description: file.description,
+        filename: file['metadata.filename'],
+        size: file['metadata.size'],
+        downloaded: file.downloads
+    })))
+
+export const sendFileUrl = fileId => `${API_URL}/file/${fileId}/file`;
